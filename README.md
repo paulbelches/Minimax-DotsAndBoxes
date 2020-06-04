@@ -6,6 +6,7 @@
 
 - numpy
 - numba
+- socket io
 
 # Run 
 
