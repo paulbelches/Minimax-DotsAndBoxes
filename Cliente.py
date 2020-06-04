@@ -4,15 +4,15 @@ from board import *
 from minimax import *
 
 username = 'Paul Belches'
-tournament = 999999
+tournament = 1
 tiempo = 0
-tiros = 2
+tiros = 3
 #Create socket
 sio = socketio.Client()
 #Conect to address
-sio.connect('http://3.12.129.126:4000')
-#sio.connect('http://localhost:4000')
-#sio.connect('http://a2c47dd95c96.ngrok.io')
+#sio.connect('http://3.12.129.126:4000')
+sio.connect('http://localhost:4000')
+#sio.connect('http://7233309d38e2.ngrok.io')
 
 @sio.event
 def connect():
@@ -29,10 +29,10 @@ def ready(data):
     global tiros
     global tiempo
 
-    #if (tiempo > 1.15):
-    #    tiros -= 1
-    print("Enemigo")
-    print(humanBoard(data['board']))
+    if (tiempo > 1.15):
+        tiros -= 1
+    #print("Sebas")
+    #print(humanBoard(data['board']))
     #try:
     move, tiempo = minimaxPrep(data['board'], data['player_turn_id'],  tiros)
     #print(move)
@@ -41,15 +41,15 @@ def ready(data):
     #tiempo = 10000000
     #print("Falle")
 
-    #if (tiempo < 0.01):
-    #    tiros += 1
+    if (tiempo < 0.01):
+        tiros += 1
 
     print(tiempo, tiros)
-    print("Yo")
-    print(move)
-    print(move[0],move[1])
-    data['board'][move[0]][move[1]] = 0
-    print(humanBoard(data['board']))
+    #print("Yo")
+    #print(move)
+    #print(move[0],move[1])
+    #data['board'][move[0]][move[1]] = 0
+    #print(humanBoard(data['board']))
 
     sio.emit('play', {
         'player_turn_id' : data['player_turn_id'],
